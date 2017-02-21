@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Lernen</string>
+    <string name="action_settings">Settings</string>
+
+    <!--> NoteFragment -->
+    <string name="notes_title_hint">Enter a title.</string>
+    <string name="notes_memo_hint">Enter a note.</string>
+</resources>
