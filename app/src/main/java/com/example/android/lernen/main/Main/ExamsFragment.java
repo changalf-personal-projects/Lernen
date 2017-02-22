@@ -61,11 +61,6 @@ public class ExamsFragment extends Fragment {
         exams[2] = thirdExam;
         exams[3] = fourthExam;
 
-        // Exams in form of String
-        final String examNameString = examName.getText().toString();
-        final String examTimeString = examTime.getText().toString();
-        final String examLocationString = examLocation.getText().toString();
-
         addExamButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,7 +78,7 @@ public class ExamsFragment extends Fragment {
                         }
                     }
                 } else {
-                    Toast.makeText(getActivity(), "Enter exam info.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Enter exam name.", Toast.LENGTH_LONG).show();
                 }
             }
         });
