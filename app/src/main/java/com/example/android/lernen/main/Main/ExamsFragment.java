@@ -61,22 +61,29 @@ public class ExamsFragment extends Fragment {
         exams[2] = thirdExam;
         exams[3] = fourthExam;
 
+        // Exams in form of String
+        final String examNameString = examName.getText().toString();
+        final String examTimeString = examTime.getText().toString();
+        final String examLocationString = examLocation.getText().toString();
+
         addExamButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (examName != null && examTime != null && examLocation != null) {
+                if (!examName.getText().toString().equals("")) {
                     // Insert exam into TextView
                     for (int i = 0; i < exams.length; i++) {
                         if (exams[i] == null || exams[i].getText().equals("")) {
                             exams[i].setText(examName.getText().toString() + "\n" + examTime.getText().toString()
                                     + "\n" + examLocation.getText().toString());
+                            examDialog.dismiss();
                             break;
                         }
-                        if (i >= 5) {
-                            Toast.makeText(getActivity(), "You are only allowed at max 6 exams!", Toast.LENGTH_LONG).show();
+                        if (i >= 3) {
+                            Toast.makeText(getActivity(), "You are only allowed a maximum of 4 exams!", Toast.LENGTH_LONG).show();
                         }
-                        examDialog.dismiss();
                     }
+                } else {
+                    Toast.makeText(getActivity(), "Enter exam info.", Toast.LENGTH_LONG).show();
                 }
             }
         });
