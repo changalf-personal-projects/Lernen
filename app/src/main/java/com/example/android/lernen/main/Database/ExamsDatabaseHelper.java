@@ -2,6 +2,7 @@ package com.example.android.lernen.main.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -43,8 +44,7 @@ public class ExamsDatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Helper method to insert new values
-    // @return: true if value successfully inserted; else, false
-    public boolean insertData(String exam, String time, String location) {
+    public boolean insert(String exam, String time, String location) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
@@ -54,5 +54,21 @@ public class ExamsDatabaseHelper extends SQLiteOpenHelper {
         long isSuccess = db.insert(TABLE_NAME, null, contentValues);
 
         return isSuccess > -1;
+    }
+
+    // Helper method to display values
+    public Cursor display() {
+        // TODO
+        return null;
+    }
+
+    // Helper method to update old values
+    public void update(String id, String exam, String time, String location) {
+        // TODO
+    }
+
+    // Helper method to delete old values
+    public void delete(String id) {
+        // TODO
     }
 }

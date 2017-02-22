@@ -74,7 +74,7 @@ public class ExamsFragment extends Fragment {
                         if (exams[i] == null || exams[i].getText().equals("")) {
                             exams[i].setText(examName.getText().toString() + "\n" + examTime.getText().toString()
                                     + "\n" + examLocation.getText().toString());
-                            boolean isSuccess = examsDb.insertData(examName.getText().toString(), examTime.getText().toString(),
+                            boolean isSuccess = examsDb.insert(examName.getText().toString(), examTime.getText().toString(),
                                     examLocation.getText().toString());
 
                             // Test; remove later
