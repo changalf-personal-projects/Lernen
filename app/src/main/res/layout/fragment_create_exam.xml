@@ -44,6 +44,7 @@
         android:layout_below="@id/exam_location"
         android:layout_marginTop="5dp"
         android:text="@string/exam_button_text"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:id="@+id/add_exam_button"/>
 
 </RelativeLayout>

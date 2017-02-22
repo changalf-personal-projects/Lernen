@@ -6,6 +6,48 @@
     android:layout_height="match_parent"
     android:background="@color/fragment_exam_background">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:id="@+id/firstExam"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:id="@+id/secondExam"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:id="@+id/thirdExam"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:id="@+id/fourthExam"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:id="@+id/fifthExam"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:id="@+id/sixthExam"/>
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,7 +62,7 @@
             android:layout_alignParentRight="true"
             android:id="@+id/fab"
             android:src="@android:drawable/ic_input_add"
-            android:tint="@color/colorAccent"
+            android:tint="@color/white"
             app:backgroundTint="@color/colorPrimary"
             app:pressedTranslationZ="15dp" />
     </RelativeLayout>
