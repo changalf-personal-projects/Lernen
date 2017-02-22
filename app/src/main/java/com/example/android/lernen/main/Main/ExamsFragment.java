@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.lernen.R;
+import com.example.android.lernen.main.Database.ExamsDatabaseHelper;
 
 /**
  * Created by alfredchang on 2017-02-20.
@@ -20,9 +21,12 @@ import com.example.android.lernen.R;
 
 public class ExamsFragment extends Fragment {
 
+    ExamsDatabaseHelper examsDb;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_exams, container, false);
+        examsDb = new ExamsDatabaseHelper(getActivity());
 
         FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +74,16 @@ public class ExamsFragment extends Fragment {
                         if (exams[i] == null || exams[i].getText().equals("")) {
                             exams[i].setText(examName.getText().toString() + "\n" + examTime.getText().toString()
                                     + "\n" + examLocation.getText().toString());
+                            boolean isSuccess = examsDb.insertData(examName.getText().toString(), examTime.getText().toString(),
+                                    examLocation.getText().toString());
+
+                            // Test; remove later
+                            if (isSuccess) {
+                                Toast.makeText(getActivity(), "Data successfully inserted!", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getActivity(), "Data not inserted.", Toast.LENGTH_LONG).show();
+                            }
+
                             examDialog.dismiss();
                             break;
                         }
