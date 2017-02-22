@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/create_activity_title"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:text="@string/title"
+        android:textColor="@color/black"
+        android:gravity="center"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/exam_name"
+        android:hint="@string/exams_name_hint"
+        android:layout_below="@id/create_activity_title"
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/exam_time"
+        android:hint="@string/exams_time_hint"
+        android:layout_below="@id/exam_name"
+        android:layout_marginTop="10dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/exam_location"
+        android:hint="@string/exams_location_hint"
+        android:layout_below="@id/exam_time"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/exam_location"
+        android:layout_marginTop="5dp"
+        android:text="@string/exam_button_text"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

@@ -1,12 +1,15 @@
-package com.example.android.lernen;
+package com.example.android.lernen.main.Main;
 
-import android.content.Intent;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+
+import com.example.android.lernen.R;
 
 /**
  * Created by alfredchang on 2017-02-20.
@@ -22,11 +25,22 @@ public class ExamsFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), EnterExamActivity.class);
-                startActivity(intent);
+                startDialog();
             }
         });
 
         return rootView;
+    }
+
+    public void startDialog() {
+        Dialog examDialog = new Dialog(getActivity());
+        examDialog.setContentView(R.layout.fragment_create_exam);
+
+        EditText examName = (EditText) getActivity().findViewById(R.id.exam_name);
+        EditText examTime = (EditText) getActivity().findViewById(R.id.exam_time);
+        EditText examLocation = (EditText) getActivity().findViewById(R.id.exam_location);
+
+        examDialog.show();
+
     }
 }

@@ -3,6 +3,13 @@
     <string name="action_settings">Settings</string>
 
     <!--> NoteFragment -->
-    <string name="notes_title_hint">Enter a title.</string>
-    <string name="notes_memo_hint">Enter a note.</string>
+    <string name="notes_title_hint">Enter a title</string>
+    <string name="notes_memo_hint">Enter a note</string>
+
+    <!--> CreateExamActivity -->
+    <string name="title">Exam</string>
+    <string name="exams_name_hint">Enter exam</string>
+    <string name="exams_time_hint">Enter time</string>
+    <string name="exams_location_hint">Enter location</string>
+    <string name="exam_button_text">Add</string>
 </resources>

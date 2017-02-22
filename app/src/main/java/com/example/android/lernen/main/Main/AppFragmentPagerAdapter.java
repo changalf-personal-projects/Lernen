@@ -1,4 +1,4 @@
-package com.example.android.lernen;
+package com.example.android.lernen.main.Main;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

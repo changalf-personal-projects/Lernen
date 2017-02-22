@@ -1,4 +1,4 @@
-package com.example.android.lernen;
+package com.example.android.lernen.main.Main;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
+
+import com.example.android.lernen.R;
 
 public class MainActivity extends AppCompatActivity implements ActionBar.TabListener {
 
