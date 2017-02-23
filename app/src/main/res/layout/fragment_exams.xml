@@ -56,15 +56,28 @@
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
+            android:layout_alignParentRight="true"
+            android:id="@+id/fabRemove"
+            android:src="@mipmap/ic_remove_black_24dp"
+            android:tint="@color/white"
+            app:backgroundTint="@color/fragment_remove_exam_button"
+            app:pressedTranslationZ="15dp"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:layout_above="@id/fabRemove"
+            android:gravity="bottom|end"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:id="@+id/fab"
+            android:id="@+id/fabAdd"
             android:src="@android:drawable/ic_input_add"
             android:tint="@color/white"
             app:backgroundTint="@color/colorPrimary"
-            app:pressedTranslationZ="15dp" />
+            app:pressedTranslationZ="15dp"/>
+
     </RelativeLayout>
 
 </LinearLayout>

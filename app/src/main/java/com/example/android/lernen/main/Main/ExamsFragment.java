@@ -38,11 +38,18 @@ public class ExamsFragment extends Fragment {
 
         displayData(rootView);
 
-        FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fabAdd = (FloatingActionButton) rootView.findViewById(R.id.fabAdd);
+        FloatingActionButton fabRemove = (FloatingActionButton) rootView.findViewById(R.id.fabRemove);
+        fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startDialog();
+            }
+        });
+        fabRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteData();
             }
         });
 
@@ -91,11 +98,15 @@ public class ExamsFragment extends Fragment {
         return data;
     }
 
+    // Helper method to delete data
     public void deleteData() {
         // TODO
 
     }
 
+    // Helper method to update data;
+    // Different from deleteData + insertData because
+    // this method doesn't need data to first be deleted
     public void updateData() {
         // TODO
     }

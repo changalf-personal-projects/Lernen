@@ -6,4 +6,5 @@
     <color name="black">#000000</color>
     <color name="fragment_exam_background">#8F8F8F</color>
     <color name="fragment_create_exam_background">#A0A2A0</color>
+    <color name="fragment_remove_exam_button">#FF9900</color>
 </resources>
