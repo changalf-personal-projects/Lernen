@@ -30,7 +30,7 @@ public class ExamsDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE " + EXAMS_TABLE + " (" +
-                COLUMN_1 + " INTEGER AUTOINCREMENT PRIMARY KEY, " +
+                COLUMN_1 + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_2 + " TEXT NOT NULL, " +
                 COLUMN_3 + " BLOB, " +
                 COLUMN_4 + " TEXT" + " );");
@@ -68,7 +68,7 @@ public class ExamsDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_1, id);
+        //contentValues.put(COLUMN_1, id);
         contentValues.put(COLUMN_2, exam);
         contentValues.put(COLUMN_3, time);
         contentValues.put(COLUMN_4, location);

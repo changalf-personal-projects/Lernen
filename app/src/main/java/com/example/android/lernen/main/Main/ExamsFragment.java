@@ -33,8 +33,12 @@ public class ExamsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_exams, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_exams, container, false);
         examsDb = new ExamsDatabaseHelper(getActivity());
+        firstExam = (TextView) rootView.findViewById(R.id.firstExam);
+        secondExam = (TextView) rootView.findViewById(R.id.secondExam);
+        thirdExam = (TextView) rootView.findViewById(R.id.thirdExam);
+        fourthExam = (TextView) rootView.findViewById(R.id.fourthExam);
 
         displayData(rootView);
 
@@ -53,6 +57,32 @@ public class ExamsFragment extends Fragment {
             }
         });
 
+        // Number identifies which table row to update
+        firstExam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateData("1");
+            }
+        });
+        secondExam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateData("2");
+            }
+        });
+        thirdExam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateData("3");
+            }
+        });
+        fourthExam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateData("4");
+            }
+        });
+
         return rootView;
     }
 
@@ -61,10 +91,10 @@ public class ExamsFragment extends Fragment {
         Cursor cursor = examsDb.query();
 
         // ExamFragment stuff
-        firstExam = (TextView) rootView.findViewById(R.id.firstExam);
-        secondExam = (TextView) rootView.findViewById(R.id.secondExam);
-        thirdExam = (TextView) rootView.findViewById(R.id.thirdExam);
-        fourthExam = (TextView) rootView.findViewById(R.id.fourthExam);
+//        firstExam = (TextView) rootView.findViewById(R.id.firstExam);
+//        secondExam = (TextView) rootView.findViewById(R.id.secondExam);
+//        thirdExam = (TextView) rootView.findViewById(R.id.thirdExam);
+//        fourthExam = (TextView) rootView.findViewById(R.id.fourthExam);
 
         // Populate TextViews manually
         exams[0] = firstExam;
@@ -79,7 +109,10 @@ public class ExamsFragment extends Fragment {
                 String data = getColumnData(ExamsDatabaseHelper.COLUMN_2, cursor) + "\n" +
                         getColumnData(ExamsDatabaseHelper.COLUMN_3, cursor) + "\n" +
                         getColumnData(ExamsDatabaseHelper.COLUMN_4, cursor);
-                exams[0].setText(data);
+                if (rowIndex == -1) {
+                    rowIndex = 0;
+                }
+                exams[rowIndex].setText(data);
             } catch (IllegalArgumentException e) {
                 System.out.println("Error in displayData: " + e);
             }
@@ -113,15 +146,53 @@ public class ExamsFragment extends Fragment {
     // Helper method to update data;
     // Different from deleteData + insertData because
     // this method doesn't need data to first be deleted
-    public void updateData(View view) {
-        // TODO
-        Dialog examDialog = new Dialog(getActivity());
+    public void updateData(String id) {
+        final Dialog examDialog = new Dialog(getActivity());
         examDialog.setContentView(R.layout.fragment_create_exam);
 
         final EditText examName = (EditText) examDialog.findViewById(R.id.exam_name);
         final EditText examTime = (EditText) examDialog.findViewById(R.id.exam_time);
         final EditText examLocation = (EditText) examDialog.findViewById(R.id.exam_location);
+        final Button addExamButton = (Button) examDialog.findViewById(R.id.add_exam_button);
 
+        final int numId = Integer.parseInt(id);
+
+        addExamButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (numId == 1) {
+                    firstExam.setText(examName.getText().toString() + "\n" + examTime.getText().toString() + "\n"
+                            + examLocation.getText().toString());
+                } else if (numId == 2) {
+                    secondExam.setText(examName.getText().toString() + "\n" +  examTime.getText().toString() + "\n"
+                            + examLocation.getText().toString());
+                } else if (numId == 3) {
+                    thirdExam.setText(examName.getText().toString() + "\n" +  examTime.getText().toString() + "\n"
+                            + examLocation.getText().toString());
+                } else {
+                    fourthExam.setText(examName.getText().toString() + "\n" +  examTime.getText().toString() + "\n"
+                            + examLocation.getText().toString());
+                }
+
+                // Test
+                //Cursor c = examsDb.query();
+                System.out.println("Exam name: " + examName.getText().toString());
+                System.out.println("Exam time: " + examTime.getText().toString());
+                System.out.println("Exam location: " + examLocation.getText().toString());
+//                System.out.println("First column: " + c.getColumnName(0) + " = "
+//                        + c.getString(c.getColumnIndex(ExamsDatabaseHelper.COLUMN_1)));
+//                System.out.println("Second column: " + c.getColumnName(1) + " = "
+//                        + c.getString(c.getColumnIndex(ExamsDatabaseHelper.COLUMN_2)));
+
+                examsDb.update(Integer.toString(numId), examName.getText().toString(), examTime.getText().toString(), examLocation.getText().toString());
+                examDialog.dismiss();
+            }
+        });
+
+        examDialog.show();
+
+        // Test
+        //System.out.println("Number of rows updated: " + numRowsUpdated);
     }
 
     public void startDialog() {
