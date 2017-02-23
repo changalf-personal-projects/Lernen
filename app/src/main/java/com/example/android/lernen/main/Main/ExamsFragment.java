@@ -1,6 +1,7 @@
 package com.example.android.lernen.main.Main;
 
 import android.app.Dialog;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -23,10 +24,19 @@ public class ExamsFragment extends Fragment {
 
     ExamsDatabaseHelper examsDb;
 
+    // Array to store each TextView that will be filled with exams
+    final TextView[] exams = new TextView[4];
+    TextView firstExam;
+    TextView secondExam;
+    TextView thirdExam;
+    TextView fourthExam;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_exams, container, false);
         examsDb = new ExamsDatabaseHelper(getActivity());
+
+        displayData(rootView);
 
         FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -39,10 +49,58 @@ public class ExamsFragment extends Fragment {
         return rootView;
     }
 
-    public void startDialog() {
-        // Array to store each TextView that will be filled with exams
-        final TextView[] exams = new TextView[4];
+    // Helper method to display saved data when this fragment is created
+    public void displayData(View rootView) {
+        Cursor cursor = examsDb.query();
 
+        // ExamFragment stuff
+        firstExam = (TextView) rootView.findViewById(R.id.firstExam);
+        secondExam = (TextView) rootView.findViewById(R.id.secondExam);
+        thirdExam = (TextView) rootView.findViewById(R.id.thirdExam);
+        fourthExam = (TextView) rootView.findViewById(R.id.fourthExam);
+
+        // Populate TextViews manually
+        exams[0] = firstExam;
+        System.out.println("FirstExam: " + firstExam + "\nexams[0]: " + exams[0]);
+        exams[1] = secondExam;
+        exams[2] = thirdExam;
+        exams[3] = fourthExam;
+
+        int rowIndex = cursor.getPosition();
+
+        while (cursor.moveToNext()) {
+            try {
+                String data = getColumnData(ExamsDatabaseHelper.COLUMN_2, cursor) + "\n" +
+                        getColumnData(ExamsDatabaseHelper.COLUMN_3, cursor) + "\n" +
+                        getColumnData(ExamsDatabaseHelper.COLUMN_4, cursor);
+                exams[0].setText(data);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error in displayData: " + e);
+            }
+            cursor.moveToNext();
+        }
+    }
+
+    public String getColumnData(String column, Cursor cursor) {
+        String data = "";
+        try {
+            data = cursor.getString(cursor.getColumnIndexOrThrow(column));
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error in getColumnData: " + e);
+        }
+        return data;
+    }
+
+    public void deleteData() {
+        // TODO
+
+    }
+
+    public void updateData() {
+        // TODO
+    }
+
+    public void startDialog() {
         final Dialog examDialog = new Dialog(getActivity());
         examDialog.setContentView(R.layout.fragment_create_exam);
 
@@ -54,10 +112,10 @@ public class ExamsFragment extends Fragment {
         final Button addExamButton = (Button) examDialog.findViewById(R.id.add_exam_button);
 
         // ExamFragment stuff
-        TextView firstExam = (TextView) getActivity().findViewById(R.id.firstExam);
-        TextView secondExam = (TextView) getActivity().findViewById(R.id.secondExam);
-        TextView thirdExam = (TextView) getActivity().findViewById(R.id.thirdExam);
-        TextView fourthExam = (TextView) getActivity().findViewById(R.id.fourthExam);
+        firstExam = (TextView) getActivity().findViewById(R.id.firstExam);
+        secondExam = (TextView) getActivity().findViewById(R.id.secondExam);
+        thirdExam = (TextView) getActivity().findViewById(R.id.thirdExam);
+        fourthExam = (TextView) getActivity().findViewById(R.id.fourthExam);
 
         // Populate TextViews manually
         exams[0] = firstExam;
@@ -74,10 +132,11 @@ public class ExamsFragment extends Fragment {
                         if (exams[i] == null || exams[i].getText().equals("")) {
                             exams[i].setText(examName.getText().toString() + "\n" + examTime.getText().toString()
                                     + "\n" + examLocation.getText().toString());
+
                             boolean isSuccess = examsDb.insert(examName.getText().toString(), examTime.getText().toString(),
                                     examLocation.getText().toString());
 
-                            // Test; remove later
+                            // Tests; remove later
                             if (isSuccess) {
                                 Toast.makeText(getActivity(), "Data successfully inserted!", Toast.LENGTH_LONG).show();
                             } else {

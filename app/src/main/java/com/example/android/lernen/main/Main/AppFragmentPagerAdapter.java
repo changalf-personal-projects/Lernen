@@ -28,7 +28,7 @@ public class AppFragmentPagerAdapter extends FragmentPagerAdapter {
             case 3:
                 return new NotesFragment();
             default:
-                return new ScheduleFragment();
+                return null;
         }
     }
 
