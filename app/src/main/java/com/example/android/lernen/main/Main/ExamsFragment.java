@@ -68,7 +68,6 @@ public class ExamsFragment extends Fragment {
 
         // Populate TextViews manually
         exams[0] = firstExam;
-        System.out.println("FirstExam: " + firstExam + "\nexams[0]: " + exams[0]);
         exams[1] = secondExam;
         exams[2] = thirdExam;
         exams[3] = fourthExam;
@@ -97,6 +96,7 @@ public class ExamsFragment extends Fragment {
     public String getColumnData(String column, Cursor cursor) {
         String data = "";
         try {
+            // Could also use cursor.getString(columnIndex) to get data in column
             data = cursor.getString(cursor.getColumnIndexOrThrow(column));
         } catch (IllegalArgumentException e) {
             System.out.println("Error in getColumnData: " + e);
@@ -115,6 +115,12 @@ public class ExamsFragment extends Fragment {
     // this method doesn't need data to first be deleted
     public void updateData(View view) {
         // TODO
+        Dialog examDialog = new Dialog(getActivity());
+        examDialog.setContentView(R.layout.fragment_create_exam);
+
+        final EditText examName = (EditText) examDialog.findViewById(R.id.exam_name);
+        final EditText examTime = (EditText) examDialog.findViewById(R.id.exam_time);
+        final EditText examLocation = (EditText) examDialog.findViewById(R.id.exam_location);
 
     }
 
@@ -130,10 +136,10 @@ public class ExamsFragment extends Fragment {
         final Button addExamButton = (Button) examDialog.findViewById(R.id.add_exam_button);
 
         // ExamFragment stuff
-        firstExam = (TextView) getActivity().findViewById(R.id.firstExam);
-        secondExam = (TextView) getActivity().findViewById(R.id.secondExam);
-        thirdExam = (TextView) getActivity().findViewById(R.id.thirdExam);
-        fourthExam = (TextView) getActivity().findViewById(R.id.fourthExam);
+//        firstExam = (TextView) getActivity().findViewById(R.id.firstExam);
+//        secondExam = (TextView) getActivity().findViewById(R.id.secondExam);
+//        thirdExam = (TextView) getActivity().findViewById(R.id.thirdExam);
+//        fourthExam = (TextView) getActivity().findViewById(R.id.fourthExam);
 
         // Populate TextViews manually
         exams[0] = firstExam;

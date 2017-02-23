@@ -73,7 +73,7 @@ public class ExamsDatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COLUMN_3, time);
         contentValues.put(COLUMN_4, location);
 
-        int numRowsUpdated = db.update(EXAMS_TABLE, contentValues, null, null);
+        int numRowsUpdated = db.update(EXAMS_TABLE, contentValues, COLUMN_1 + " = ?", new String[]{id});
         return numRowsUpdated;
     }
 
