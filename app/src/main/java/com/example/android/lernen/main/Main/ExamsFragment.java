@@ -88,6 +88,12 @@ public class ExamsFragment extends Fragment {
         }
     }
 
+    public boolean saveData(EditText examName, EditText examTime, EditText examLocation) {
+        boolean isSuccess = examsDb.insert(examName.getText().toString(), examTime.getText().toString(),
+                examLocation.getText().toString());
+        return isSuccess;
+    }
+
     public String getColumnData(String column, Cursor cursor) {
         String data = "";
         try {
@@ -107,8 +113,9 @@ public class ExamsFragment extends Fragment {
     // Helper method to update data;
     // Different from deleteData + insertData because
     // this method doesn't need data to first be deleted
-    public void updateData() {
+    public void updateData(View view) {
         // TODO
+
     }
 
     public void startDialog() {
@@ -144,8 +151,7 @@ public class ExamsFragment extends Fragment {
                             exams[i].setText(examName.getText().toString() + "\n" + examTime.getText().toString()
                                     + "\n" + examLocation.getText().toString());
 
-                            boolean isSuccess = examsDb.insert(examName.getText().toString(), examTime.getText().toString(),
-                                    examLocation.getText().toString());
+                            boolean isSuccess = saveData(examName, examTime, examLocation);
 
                             // Tests; remove later
                             if (isSuccess) {

@@ -11,42 +11,32 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:textColor="@color/white"
-        android:id="@+id/firstExam"/>
+        android:id="@+id/firstExam"
+        android:onClick="updateData"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:textColor="@color/white"
-        android:id="@+id/secondExam"/>
+        android:id="@+id/secondExam"
+        android:onClick="updateData"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:textColor="@color/white"
-        android:id="@+id/thirdExam"/>
+        android:id="@+id/thirdExam"
+        android:onClick="updateData"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:textColor="@color/white"
-        android:id="@+id/fourthExam"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:textColor="@color/white"
-        android:id="@+id/fifthExam"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:textColor="@color/white"
-        android:id="@+id/sixthExam"/>
+        android:id="@+id/fourthExam"
+        android:onClick="updateData"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
