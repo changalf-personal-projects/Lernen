@@ -102,21 +102,24 @@ public class ExamsFragment extends Fragment {
         exams[2] = thirdExam;
         exams[3] = fourthExam;
 
-        int rowIndex = cursor.getPosition();
+        boolean rowIndex = cursor.moveToFirst();
+        int counter = cursor.getPosition();
 
-        while (cursor.moveToNext()) {
+        while (rowIndex) {
+            System.out.println("Row index: " + rowIndex);
+            System.out.println("Counter: " + counter);
+            System.out.println("Number of rows: " + cursor.getCount() + "\n");
             try {
                 String data = getColumnData(ExamsDatabaseHelper.COLUMN_2, cursor) + "\n" +
                         getColumnData(ExamsDatabaseHelper.COLUMN_3, cursor) + "\n" +
                         getColumnData(ExamsDatabaseHelper.COLUMN_4, cursor);
-                if (rowIndex == -1) {
-                    rowIndex = 0;
-                }
-                exams[rowIndex].setText(data);
+
+                exams[counter].setText(data);
             } catch (IllegalArgumentException e) {
                 System.out.println("Error in displayData: " + e);
             }
-            cursor.moveToNext();
+            counter++;
+            rowIndex = cursor.moveToNext();
         }
     }
 
@@ -129,8 +132,10 @@ public class ExamsFragment extends Fragment {
     public String getColumnData(String column, Cursor cursor) {
         String data = "";
         try {
-            // Could also use cursor.getString(columnIndex) to get data in column
-            data = cursor.getString(cursor.getColumnIndexOrThrow(column));
+            if (cursor.getCount() >= 1) {
+                // Could also use cursor.getString(columnIndex) to get data in column
+                data = cursor.getString(cursor.getColumnIndexOrThrow(column));
+            }
         } catch (IllegalArgumentException e) {
             System.out.println("Error in getColumnData: " + e);
         }
@@ -139,8 +144,11 @@ public class ExamsFragment extends Fragment {
 
     // Helper method to delete data
     public void deleteData() {
+        // TODO: Fix remove button positioning
+        // TODO: Display all available data upon start up
+        // TODO: Can only add new data by pressing add button
+        // TODO: Can only update data by pressing on a non-empty data
         // TODO
-
     }
 
     // Helper method to update data;

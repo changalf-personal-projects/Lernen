@@ -6,29 +6,30 @@
     android:layout_height="match_parent"
     android:background="@color/fragment_exam_background">
 
+    <!-- layout_width used to be "match_parent" -->
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:textColor="@color/white"
         android:id="@+id/firstExam"/>
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:textColor="@color/white"
         android:id="@+id/secondExam"/>
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:textColor="@color/white"
         android:id="@+id/thirdExam"/>
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:textColor="@color/white"
