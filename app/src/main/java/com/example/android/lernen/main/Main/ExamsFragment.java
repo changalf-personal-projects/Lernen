@@ -90,7 +90,7 @@ public class ExamsFragment extends Fragment {
 
     // Helper method to display saved data when this fragment is created
     public void displayData(View rootView) {
-        Cursor cursor = examsDb.query();
+        cursor = examsDb.query();
 
         // ExamFragment stuff
 //        firstExam = (TextView) rootView.findViewById(R.id.firstExam);
@@ -112,9 +112,9 @@ public class ExamsFragment extends Fragment {
             System.out.println("Counter: " + counter);
             System.out.println("Number of rows: " + cursor.getCount() + "\n");
             try {
-                String data = getColumnData(ExamsDatabaseHelper.COLUMN_2, cursor) + "\n" +
-                        getColumnData(ExamsDatabaseHelper.COLUMN_3, cursor) + "\n" +
-                        getColumnData(ExamsDatabaseHelper.COLUMN_4, cursor);
+                String data = getColumnData(ExamsDatabaseHelper.COLUMN_2) + "\n" +
+                        getColumnData(ExamsDatabaseHelper.COLUMN_3) + "\n" +
+                        getColumnData(ExamsDatabaseHelper.COLUMN_4);
 
                 exams[counter].setText(data);
             } catch (IllegalArgumentException e) {
@@ -131,7 +131,7 @@ public class ExamsFragment extends Fragment {
         return isSuccess;
     }
 
-    public String getColumnData(String column, Cursor cursor) {
+    public String getColumnData(String column) {
         String data = "";
         try {
             if (cursor.getCount() >= 1) {
@@ -147,7 +147,7 @@ public class ExamsFragment extends Fragment {
     // Helper method to delete data
     public int deleteData() {
         // TODO
-        Cursor cursor = examsDb.query();
+        cursor = examsDb.query();
         int rowId = 0;
 
         try {
@@ -178,7 +178,7 @@ public class ExamsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 // Check that course exists and time is "valid"
-                if (!examName.getText().toString().equals("")) {
+                if (examName.getText().toString().equals("")) {
                     Toast.makeText(getActivity(), "Please enter the course of exam.", Toast.LENGTH_LONG).show();
                 } else if (!examDate.getText().toString().matches(".*\\d+.*")) {
                     Toast.makeText(getActivity(), "Please enter a proper time.", Toast.LENGTH_LONG).show();
@@ -282,6 +282,7 @@ public class ExamsFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        cursor.close();
         examsDb.close();
     }
 }
