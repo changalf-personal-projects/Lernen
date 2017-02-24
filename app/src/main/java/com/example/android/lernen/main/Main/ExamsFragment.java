@@ -147,6 +147,12 @@ public class ExamsFragment extends Fragment {
     // Helper method to delete data
     public int deleteData() {
         // TODO
+        final Dialog examDialog = new Dialog(getActivity());
+        examDialog.setContentView(R.layout.fragment_remove_exam);
+        examDialog.show();
+
+        // Get id of checkboxes
+
         cursor = examsDb.query();
         int rowId = 0;
 

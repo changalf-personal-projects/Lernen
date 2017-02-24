@@ -6,10 +6,16 @@
     <string name="notes_title_hint">Enter a title</string>
     <string name="notes_memo_hint">Enter a note</string>
 
-    <!--> CreateExamActivity -->
-    <string name="title">Exam</string>
+    <!--> CreateExamFragment -->
+    <string name="title_add">New Exam</string>
+    <string name="title_remove">Remove Exam</string>
     <string name="exams_name_hint">Enter exam</string>
     <string name="exams_time_hint">Enter date</string>
     <string name="exams_location_hint">Enter location</string>
-    <string name="exam_button_text">Add</string>
+    <string name="exam_button_add">Add</string>
+    <string name="exam_button_delete">Delete</string>
+    <string name="remove_first_exam">Exam 1</string>
+    <string name="remove_second_exam">Exam 2</string>
+    <string name="remove_third_exam">Exam 3</string>
+    <string name="remove_fourth_exam">Exam 4</string>
 </resources>
