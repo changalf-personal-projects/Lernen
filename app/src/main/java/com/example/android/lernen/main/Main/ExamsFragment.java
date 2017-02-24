@@ -2,6 +2,7 @@ package com.example.android.lernen.main.Main;
 
 import android.app.Dialog;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,7 @@ import com.example.android.lernen.main.Database.ExamsDatabaseHelper;
 public class ExamsFragment extends Fragment {
 
     ExamsDatabaseHelper examsDb;
+    Cursor cursor;
 
     // Array to store each TextView that will be filled with exams
     final TextView[] exams = new TextView[4];
@@ -143,12 +145,19 @@ public class ExamsFragment extends Fragment {
     }
 
     // Helper method to delete data
-    public void deleteData() {
-        // TODO: Fix remove button positioning
-        // TODO: Display all available data upon start up
-        // TODO: Can only add new data by pressing add button
-        // TODO: Can only update data by pressing on a non-empty data
+    public int deleteData() {
         // TODO
+        Cursor cursor = examsDb.query();
+        int rowId = 0;
+
+        try {
+            rowId = cursor.getColumnIndexOrThrow(ExamsDatabaseHelper.COLUMN_1);
+        } catch (SQLException e) {
+            System.out.println("Error in deleteData: " + e);
+        }
+
+        int numRowsDeleted = examsDb.delete(Integer.toString(rowId));
+        return numRowsDeleted;
     }
 
     // Helper method to update data;
@@ -159,7 +168,7 @@ public class ExamsFragment extends Fragment {
         examDialog.setContentView(R.layout.fragment_create_exam);
 
         final EditText examName = (EditText) examDialog.findViewById(R.id.exam_name);
-        final EditText examTime = (EditText) examDialog.findViewById(R.id.exam_time);
+        final EditText examDate = (EditText) examDialog.findViewById(R.id.exam_time);
         final EditText examLocation = (EditText) examDialog.findViewById(R.id.exam_location);
         final Button addExamButton = (Button) examDialog.findViewById(R.id.add_exam_button);
 
@@ -168,32 +177,40 @@ public class ExamsFragment extends Fragment {
         addExamButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (numId == 1) {
-                    firstExam.setText(examName.getText().toString() + "\n" + examTime.getText().toString() + "\n"
-                            + examLocation.getText().toString());
-                } else if (numId == 2) {
-                    secondExam.setText(examName.getText().toString() + "\n" +  examTime.getText().toString() + "\n"
-                            + examLocation.getText().toString());
-                } else if (numId == 3) {
-                    thirdExam.setText(examName.getText().toString() + "\n" +  examTime.getText().toString() + "\n"
-                            + examLocation.getText().toString());
+                // Check that course exists and time is "valid"
+                if (!examName.getText().toString().equals("")) {
+                    Toast.makeText(getActivity(), "Please enter the course of exam.", Toast.LENGTH_LONG).show();
+                } else if (!examDate.getText().toString().matches(".*\\d+.*")) {
+                    Toast.makeText(getActivity(), "Please enter a proper time.", Toast.LENGTH_LONG).show();
                 } else {
-                    fourthExam.setText(examName.getText().toString() + "\n" +  examTime.getText().toString() + "\n"
-                            + examLocation.getText().toString());
+                    if (numId == 1) {
+                        firstExam.setText(examName.getText().toString() + "\n" + examDate.getText().toString() + "\n"
+                                + examLocation.getText().toString());
+                    } else if (numId == 2) {
+                        secondExam.setText(examName.getText().toString() + "\n" +  examDate.getText().toString() + "\n"
+                                + examLocation.getText().toString());
+                    } else if (numId == 3) {
+                        thirdExam.setText(examName.getText().toString() + "\n" +  examDate.getText().toString() + "\n"
+                                + examLocation.getText().toString());
+                    } else {
+                        fourthExam.setText(examName.getText().toString() + "\n" +  examDate.getText().toString() + "\n"
+                                + examLocation.getText().toString());
+                    }
+                    examDialog.dismiss();
                 }
 
                 // Test
                 //Cursor c = examsDb.query();
                 System.out.println("Exam name: " + examName.getText().toString());
-                System.out.println("Exam time: " + examTime.getText().toString());
+                System.out.println("Exam time: " + examDate.getText().toString());
                 System.out.println("Exam location: " + examLocation.getText().toString());
 //                System.out.println("First column: " + c.getColumnName(0) + " = "
 //                        + c.getString(c.getColumnIndex(ExamsDatabaseHelper.COLUMN_1)));
 //                System.out.println("Second column: " + c.getColumnName(1) + " = "
 //                        + c.getString(c.getColumnIndex(ExamsDatabaseHelper.COLUMN_2)));
 
-                examsDb.update(Integer.toString(numId), examName.getText().toString(), examTime.getText().toString(), examLocation.getText().toString());
-                examDialog.dismiss();
+                examsDb.update(Integer.toString(numId), examName.getText().toString(), examDate.getText().toString(),
+                        examLocation.getText().toString());
             }
         });
 
@@ -259,5 +276,12 @@ public class ExamsFragment extends Fragment {
         });
 
         examDialog.show();
+    }
+
+    // Close the database when fragment is destroyed
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        examsDb.close();
     }
 }

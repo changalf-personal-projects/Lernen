@@ -80,8 +80,7 @@ public class ExamsDatabaseHelper extends SQLiteOpenHelper {
     // Helper method to delete old values
     public int delete(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        int numRowsDeleted = db.delete(EXAMS_TABLE, "SELECT * FROM " + EXAMS_TABLE + " WHERE " + COLUMN_1 + " LIKE " + id,
-                null);
+        int numRowsDeleted = db.delete(EXAMS_TABLE, COLUMN_1 + " = ?", new String[]{id});
         return numRowsDeleted;
     }
 }
