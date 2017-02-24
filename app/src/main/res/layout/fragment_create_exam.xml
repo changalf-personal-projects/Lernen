@@ -24,7 +24,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/exam_time"
+        android:id="@+id/exam_date"
         android:hint="@string/exams_time_hint"
         android:layout_below="@id/exam_name"
         android:layout_marginTop="10dp"/>
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/exam_location"
         android:hint="@string/exams_location_hint"
-        android:layout_below="@id/exam_time"
+        android:layout_below="@id/exam_date"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"/>
 

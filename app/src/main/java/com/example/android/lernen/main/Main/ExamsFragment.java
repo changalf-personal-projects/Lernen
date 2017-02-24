@@ -168,7 +168,7 @@ public class ExamsFragment extends Fragment {
         examDialog.setContentView(R.layout.fragment_create_exam);
 
         final EditText examName = (EditText) examDialog.findViewById(R.id.exam_name);
-        final EditText examDate = (EditText) examDialog.findViewById(R.id.exam_time);
+        final EditText examDate = (EditText) examDialog.findViewById(R.id.exam_date);
         final EditText examLocation = (EditText) examDialog.findViewById(R.id.exam_location);
         final Button addExamButton = (Button) examDialog.findViewById(R.id.add_exam_button);
 
@@ -227,7 +227,7 @@ public class ExamsFragment extends Fragment {
         // CreateExamFragment stuff
         // Variables made final due to access in inner class
         final EditText examName = (EditText) examDialog.findViewById(R.id.exam_name);
-        final EditText examTime = (EditText) examDialog.findViewById(R.id.exam_time);
+        final EditText examDate = (EditText) examDialog.findViewById(R.id.exam_date);
         final EditText examLocation = (EditText) examDialog.findViewById(R.id.exam_location);
         final Button addExamButton = (Button) examDialog.findViewById(R.id.add_exam_button);
 
@@ -246,14 +246,18 @@ public class ExamsFragment extends Fragment {
         addExamButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!examName.getText().toString().equals("")) {
+                if (examName.getText().toString().equals("")) {
+                    Toast.makeText(getActivity(), "Enter exam name.", Toast.LENGTH_LONG).show();
+                } else if (!examDate.getText().toString().matches(".*\\d+.*")) {
+                    Toast.makeText(getActivity(), "Please enter a proper time.", Toast.LENGTH_LONG).show();
+                } else {
                     // Insert exam into TextView
                     for (int i = 0; i < exams.length; i++) {
                         if (exams[i] == null || exams[i].getText().equals("")) {
-                            exams[i].setText(examName.getText().toString() + "\n" + examTime.getText().toString()
+                            exams[i].setText(examName.getText().toString() + "\n" + examDate.getText().toString()
                                     + "\n" + examLocation.getText().toString());
 
-                            boolean isSuccess = saveData(examName, examTime, examLocation);
+                            boolean isSuccess = saveData(examName, examDate, examLocation);
 
                             // Tests; remove later
                             if (isSuccess) {
@@ -269,8 +273,6 @@ public class ExamsFragment extends Fragment {
                             Toast.makeText(getActivity(), "You are only allowed a maximum of 4 exams!", Toast.LENGTH_LONG).show();
                         }
                     }
-                } else {
-                    Toast.makeText(getActivity(), "Enter exam name.", Toast.LENGTH_LONG).show();
                 }
             }
         });
