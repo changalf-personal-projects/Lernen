@@ -141,6 +141,12 @@ public class ExamsFragment extends Fragment {
     }
 
     // Helper method to delete data
+    /*
+     * THe problem here may be that AUTOINCREMENT is not restarting its counter, so even
+     * if rows are deleted the counter increases.  Since we manually pass a counter for each
+     * row deleted, this may by a problem as counters won't match.  Test this by writing a table
+     * with the the values.  Know the values by printing them out.
+     */
     public void deleteData() {
         final Dialog examDialog = new Dialog(getActivity());
         examDialog.setContentView(R.layout.fragment_remove_exam);
