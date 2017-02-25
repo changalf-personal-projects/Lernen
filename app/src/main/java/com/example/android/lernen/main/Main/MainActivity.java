@@ -27,13 +27,13 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
         mActionBar = getSupportActionBar();
         mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-
         String[] tabTitles = {"Schedule", "Courses", "Exams", "Notes"};
         for (String title : tabTitles) {
             mActionBar.addTab(mActionBar.newTab().setText(title).setTabListener(this));
         }
 
         mAfpa = new AppFragmentPagerAdapter(getSupportFragmentManager());
+        mViewPager.setOffscreenPageLimit(mAfpa.getCount() - 1);
         mViewPager.setAdapter(mAfpa);
     }
 

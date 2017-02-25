@@ -2,7 +2,6 @@ package com.example.android.lernen.main.Main;
 
 import android.app.Dialog;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -10,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,8 +35,10 @@ public class ExamsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         final View rootView = inflater.inflate(R.layout.fragment_exams, container, false);
         examsDb = new ExamsDatabaseHelper(getActivity());
+
         firstExam = (TextView) rootView.findViewById(R.id.firstExam);
         secondExam = (TextView) rootView.findViewById(R.id.secondExam);
         thirdExam = (TextView) rootView.findViewById(R.id.thirdExam);
@@ -92,12 +94,6 @@ public class ExamsFragment extends Fragment {
     public void displayData(View rootView) {
         cursor = examsDb.query();
 
-        // ExamFragment stuff
-//        firstExam = (TextView) rootView.findViewById(R.id.firstExam);
-//        secondExam = (TextView) rootView.findViewById(R.id.secondExam);
-//        thirdExam = (TextView) rootView.findViewById(R.id.thirdExam);
-//        fourthExam = (TextView) rootView.findViewById(R.id.fourthExam);
-
         // Populate TextViews manually
         exams[0] = firstExam;
         exams[1] = secondExam;
@@ -108,14 +104,14 @@ public class ExamsFragment extends Fragment {
         int counter = cursor.getPosition();
 
         while (rowIndex) {
-            System.out.println("Row index: " + rowIndex);
-            System.out.println("Counter: " + counter);
-            System.out.println("Number of rows: " + cursor.getCount() + "\n");
+            System.out.println("Display data number of rows: " + cursor.getCount() + "\n");
             try {
                 String data = getColumnData(ExamsDatabaseHelper.COLUMN_2) + "\n" +
                         getColumnData(ExamsDatabaseHelper.COLUMN_3) + "\n" +
                         getColumnData(ExamsDatabaseHelper.COLUMN_4);
-
+                if (counter == 4) {
+                    counter = 3;
+                }
                 exams[counter].setText(data);
             } catch (IllegalArgumentException e) {
                 System.out.println("Error in displayData: " + e);
@@ -145,25 +141,61 @@ public class ExamsFragment extends Fragment {
     }
 
     // Helper method to delete data
-    public int deleteData() {
-        // TODO
+    public void deleteData() {
         final Dialog examDialog = new Dialog(getActivity());
         examDialog.setContentView(R.layout.fragment_remove_exam);
-        examDialog.show();
 
         // Get id of checkboxes
+        final CheckBox firstCheckBox = (CheckBox) examDialog.findViewById(R.id.checkbox_1);
+        final CheckBox secondCheckBox = (CheckBox) examDialog.findViewById(R.id.checkbox_2);
+        final CheckBox thirdCheckBox = (CheckBox) examDialog.findViewById(R.id.checkbox_3);
+        final CheckBox fourthCheckBox = (CheckBox) examDialog.findViewById(R.id.checkbox_4);
+        Button removeExamButton = (Button) examDialog.findViewById(R.id.remove_exam_button);
 
-        cursor = examsDb.query();
-        int rowId = 0;
+        // Debugging purposes
+        final Cursor cursor = examsDb.query();
 
-        try {
-            rowId = cursor.getColumnIndexOrThrow(ExamsDatabaseHelper.COLUMN_1);
-        } catch (SQLException e) {
-            System.out.println("Error in deleteData: " + e);
-        }
+        removeExamButton.setOnClickListener(new View.OnClickListener() {
+            //int position = cursor.getPosition();
+            @Override
+            public void onClick(View view) {
+                if (firstCheckBox.isChecked()) {
+                    firstCheckBox.setVisibility(View.VISIBLE);
+                    examsDb.delete("1");
+                    firstExam.setText("");
+                    if (cursor.moveToFirst()) {
+                        System.out.println("First checkbox: " + cursor.getString(cursor.getColumnIndex(ExamsDatabaseHelper.COLUMN_1)));
+                    }
+                }
+                if (secondCheckBox.isChecked()) {
+                    examsDb.delete("2");
+                    secondExam.setText("");
+                    if (cursor.moveToNext()) {
+                        System.out.println("Second checkbox: " + cursor.getString(cursor.getColumnIndex(ExamsDatabaseHelper.COLUMN_2)));
+                    }
+                }
+                if (thirdCheckBox.isChecked()) {
+                    examsDb.delete("3");
+                    thirdExam.setText("");
+                    if (cursor.moveToNext()) {
+                        System.out.println("Third checkbox: " + cursor.getString(cursor.getColumnIndex(ExamsDatabaseHelper.COLUMN_3)));
+                    }
+                }
+                if (fourthCheckBox.isChecked()) {
+                    examsDb.delete("4");
+                    fourthExam.setText("");
+                    if (cursor.moveToLast()) {
+                        System.out.println("Fourth checkbox: " + cursor.getString(cursor.getColumnIndex(ExamsDatabaseHelper.COLUMN_4)));
+                    }
+                }
+                if (cursor.moveToFirst()) {
+                    System.out.println("Delete data number of rows: " + cursor.getCount());
+                }
+                examDialog.dismiss();
+            }
+        });
 
-        int numRowsDeleted = examsDb.delete(Integer.toString(rowId));
-        return numRowsDeleted;
+        examDialog.show();
     }
 
     // Helper method to update data;
@@ -204,26 +236,12 @@ public class ExamsFragment extends Fragment {
                     }
                     examDialog.dismiss();
                 }
-
-                // Test
-                //Cursor c = examsDb.query();
-                System.out.println("Exam name: " + examName.getText().toString());
-                System.out.println("Exam time: " + examDate.getText().toString());
-                System.out.println("Exam location: " + examLocation.getText().toString());
-//                System.out.println("First column: " + c.getColumnName(0) + " = "
-//                        + c.getString(c.getColumnIndex(ExamsDatabaseHelper.COLUMN_1)));
-//                System.out.println("Second column: " + c.getColumnName(1) + " = "
-//                        + c.getString(c.getColumnIndex(ExamsDatabaseHelper.COLUMN_2)));
-
                 examsDb.update(Integer.toString(numId), examName.getText().toString(), examDate.getText().toString(),
                         examLocation.getText().toString());
             }
         });
 
         examDialog.show();
-
-        // Test
-        //System.out.println("Number of rows updated: " + numRowsUpdated);
     }
 
     public void startDialog() {
@@ -236,12 +254,6 @@ public class ExamsFragment extends Fragment {
         final EditText examDate = (EditText) examDialog.findViewById(R.id.exam_date);
         final EditText examLocation = (EditText) examDialog.findViewById(R.id.exam_location);
         final Button addExamButton = (Button) examDialog.findViewById(R.id.add_exam_button);
-
-        // ExamFragment stuff
-//        firstExam = (TextView) getActivity().findViewById(R.id.firstExam);
-//        secondExam = (TextView) getActivity().findViewById(R.id.secondExam);
-//        thirdExam = (TextView) getActivity().findViewById(R.id.thirdExam);
-//        fourthExam = (TextView) getActivity().findViewById(R.id.fourthExam);
 
         // Populate TextViews manually
         exams[0] = firstExam;
@@ -290,7 +302,7 @@ public class ExamsFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        cursor.close();
-        examsDb.close();
+        //cursor.close();
+        //examsDb.close();
     }
 }

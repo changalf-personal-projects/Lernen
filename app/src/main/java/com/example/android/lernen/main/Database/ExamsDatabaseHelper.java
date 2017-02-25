@@ -32,7 +32,7 @@ public class ExamsDatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("CREATE TABLE " + EXAMS_TABLE + " (" +
                 COLUMN_1 + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_2 + " TEXT NOT NULL, " +
-                COLUMN_3 + " BLOB, " +
+                COLUMN_3 + " TEXT, " +
                 COLUMN_4 + " TEXT" + " );");
     }
 
@@ -80,7 +80,7 @@ public class ExamsDatabaseHelper extends SQLiteOpenHelper {
     // Helper method to delete old values
     public int delete(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        int numRowsDeleted = db.delete(EXAMS_TABLE, COLUMN_1 + " = ?", new String[]{id});
+        int numRowsDeleted = db.delete(EXAMS_TABLE,  COLUMN_1 + " = ?", new String[]{id});
         return numRowsDeleted;
     }
 }

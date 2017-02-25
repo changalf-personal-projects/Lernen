@@ -27,18 +27,14 @@
             android:text="@string/remove_first_exam"
             android:textStyle="bold"
             android:textSize="15sp"
-            android:gravity="left"
             android:textColor="@color/black"
             android:paddingBottom="25dp"
             android:paddingStart="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingEnd="10dp"/>
+            android:paddingLeft="10dp"/>
 
         <CheckBox
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
             android:layout_weight="1"
             android:id="@+id/checkbox_1"/>
     </LinearLayout>
@@ -59,9 +55,7 @@
             android:textColor="@color/black"
             android:paddingBottom="25dp"
             android:paddingStart="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingEnd="10dp"/>
+            android:paddingLeft="10dp"/>
 
         <CheckBox
             android:layout_width="0dp"
@@ -87,9 +81,7 @@
             android:textColor="@color/black"
             android:paddingBottom="25dp"
             android:paddingStart="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingEnd="10dp"/>
+            android:paddingLeft="10dp"/>
 
         <CheckBox
             android:layout_width="0dp"
@@ -115,9 +107,7 @@
             android:textColor="@color/black"
             android:paddingBottom="25dp"
             android:paddingStart="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingEnd="10dp"/>
+            android:paddingLeft="10dp"/>
 
         <CheckBox
             android:layout_width="0dp"
@@ -133,6 +123,7 @@
         android:text="@string/exam_button_delete"
         android:gravity="center"
         android:paddingBottom="15dp"
-        android:paddingTop="15dp"/>
+        android:paddingTop="15dp"
+        android:id="@+id/remove_exam_button"/>
 
 </LinearLayout>
